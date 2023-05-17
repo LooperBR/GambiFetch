@@ -13,7 +13,10 @@
     <br>
     <label for="senha">senha</label>
     <input type="password" name="senha" id = "senha">
+    <br>
     <button onclick="validar()">Validar</button>
+    <br>
+    <button onclick="validar2()">Validar2</button>
     <script>
         async function validar(){
             let login = document.getElementById('login')
@@ -39,12 +42,20 @@
                         login:login.value,
                         senha:senha.value
                         }
-            let response = await fetch('http://localhost:9001/validar',{
+
+            let myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.set("login", login.value);
+            myHeaders.set("senha", senha.value);
+
+            console.log(myHeaders.get("login"))
+            
+            myHeaders.delete("Content-Type")
+
+            let response = await 
+            fetch('http://localhost:9001/validar2',{
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dados),
+                headers: myHeaders,
             })
 
             console.log(await response.json())
